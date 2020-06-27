@@ -1,0 +1,46 @@
+{
+  "name": "jsonar-client",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@devexpress/dx-react-core": "^2.6.4",
+    "@devexpress/dx-react-grid": "^2.6.4",
+    "@devexpress/dx-react-grid-bootstrap3": "^2.6.4",
+    "@devexpress/dx-react-grid-bootstrap4": "^2.6.4",
+    "@fortawesome/fontawesome-svg-core": "^1.2.29",
+    "@fortawesome/free-solid-svg-icons": "^5.13.1",
+    "@fortawesome/react-fontawesome": "^0.1.11",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.5.0",
+    "react": "^16.8.0",
+    "react-bootstrap": "^1.0.1",
+    "react-dom": "^16.8.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "^3.4.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "eslint": "^7.3.1",
+    "eslint-plugin-react": "^7.20.0"
+  }
+}
