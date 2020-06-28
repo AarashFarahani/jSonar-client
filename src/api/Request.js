@@ -5,7 +5,7 @@ const CONTENT_TYPE = "Content-Type";
 const APPLICATION_JSON = "application/json";
 
 const instance = axios.create({
-    baseURL: "http://localhost:8080/api",
+    baseURL: process.env.REACT_APP_BASE_URL || "http://localhost:8020/api",
 });
 
 instance.interceptors.request.use((config) => {
