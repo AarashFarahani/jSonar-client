@@ -1,6 +1,6 @@
 import axios from "axios";
+import Authentication from "./Authentication";
 
-const AUTHORIZATION = "Authorization";
 const CONTENT_TYPE = "Content-Type";
 const APPLICATION_JSON = "application/json";
 
@@ -9,15 +9,9 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
-    config.headers.get[AUTHORIZATION] = token();
-
-    config.headers.post[AUTHORIZATION] = token();
+    config.headers.Authorization = token();
     config.headers.post[CONTENT_TYPE] = APPLICATION_JSON;
-
-    config.headers.put[AUTHORIZATION] = token();
     config.headers.put[CONTENT_TYPE] = APPLICATION_JSON;
-
-    config.headers.delete[AUTHORIZATION] = token();
     config.headers.delete[CONTENT_TYPE] = APPLICATION_JSON;
     return config;
 });
@@ -39,20 +33,10 @@ export default Request = {
 
 function token() {
     // return authorization header with jwt token
-    // let user = Authentication.getUser();
+    const user = Authentication.user();
 
-    // if(user && user.token)
-    //     return `Bearer ${user.token}`;
+    if (user && user.token)
+        return `Bearer ${user.token}`;
 
     return "";
 }
-
-// function handleError(response) {
-//     if (response && (response.status === 401 || response.status === 403)) {
-//         // auto logout if 401 response returned from api
-//         Authentication.signout();
-//         location.reload(true);
-//     } else {
-//         store.dispatch(HandleResponse.error(response));
-//     }
-// }

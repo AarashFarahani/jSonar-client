@@ -15,8 +15,6 @@ const logout = () => {
 };
 
 const App = () => {
-  console.log(Authentication.user());
-
   return (
     <div>
       <Navbar></Navbar>

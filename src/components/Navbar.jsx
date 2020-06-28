@@ -11,9 +11,7 @@ const Navbar = () => {
   const state = useSelector((state) => state);
   const dispatch = useDispatch();
 
-  console.log(state.user);
-  const isLoggedIn =
-    (state.user && state.user.isLoggedIn) || Authentication.user();
+  const isLoggedIn = state.user && state.user.isLoggedIn;
 
   const logout = () => {
     Authentication.logout();

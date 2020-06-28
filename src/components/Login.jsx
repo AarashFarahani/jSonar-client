@@ -5,22 +5,42 @@ import Authentication from "../api/Authentication";
 import { history } from "../api/history";
 import { useDispatch } from "react-redux";
 import * as Action from "../actions/authenticationAction";
+import Request from "../api/Request";
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
   const dispatch = useDispatch();
 
   const handleSubmit = () => {
-    const user = { username, password, isLoggedIn: true };
-    Authentication.login(JSON.stringify(user));
-    dispatch(Action.login(user));
-    history.push("/");
+    const user = { username, password };
+
+    Request.post("/login", user)
+      .then((res) => {
+        user.token = res.data.token;
+        user.password = "";
+        user.isLoggedIn = true;
+
+        Authentication.login(user);
+        dispatch(Action.login(user));
+        history.push("/");
+      })
+      .catch((e) => {
+        if (e.response) setMessage(e.response.data);
+        console.log(e);
+      });
   };
 
   return (
-    <form className="form-signin" onSubmit={handleSubmit}>
+    <form className="form-signin">
       <img className="mb-4" src={logo} alt=""></img>
+
+      {message && (
+        <div className="alert alert-danger alert-dismissible fade show">
+          <strong>Error!</strong> {message}
+        </div>
+      )}
 
       <div className="form-group mt-4">
         <label htmlFor="username">Username:</label>
@@ -44,7 +64,11 @@ const LoginPage = () => {
         />
       </div>
 
-      <button type="submit" className="btn btn-lg btn-primary btn-block">
+      <button
+        type="button"
+        onClick={() => handleSubmit()}
+        className="btn btn-lg btn-primary btn-block"
+      >
         Log in
       </button>
     </form>

@@ -1,9 +1,13 @@
 import * as actionTypes from "../constants/ActionTypes";
+import Authentication from "../api/Authentication";
+
+const user = Authentication.user();
 
 const initialState = {
-    username: "",
-    password: "",
-    isLoggedIn: false
+    user: {
+        username: user ? user.username : "",
+        isLoggedIn: user ? user.isLoggedIn : false
+    }
 };
 
 export default (state = initialState, action) => {

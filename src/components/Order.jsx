@@ -17,7 +17,7 @@ class Order extends React.Component {
   }
 
   setOpen(os, orderNumber) {
-    if (this.state.orderDetails.length == 0) {
+    if (this.state.orderDetails.length === 0) {
       Request.get(`/orderDetails/${orderNumber}`)
         .then((res) => this.setState({ orderDetails: res.data }))
         .catch((e) => console.log(e));
