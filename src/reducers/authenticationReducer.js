@@ -2,16 +2,15 @@ import * as actionTypes from "../constants/ActionTypes";
 
 const initialState = {
     username: "",
-    password: ""
+    password: "",
+    isLoggedIn: false
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.LOGIN: {
-            console.log(action);
-            console.log(state);
             return {
-                user: action.payload.user
+                user: action.payload
             }
         }
         case actionTypes.LOGOUT: {

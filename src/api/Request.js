@@ -10,7 +10,6 @@ const instance = axios.create({
 
 instance.interceptors.request.use((config) => {
     config.headers.get[AUTHORIZATION] = token();
-    // config.headers.get["Access-Control-Allow-Origin"] = "*";
 
     config.headers.post[AUTHORIZATION] = token();
     config.headers.post[CONTENT_TYPE] = APPLICATION_JSON;

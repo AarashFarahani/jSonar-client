@@ -1,71 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import "./Login.css";
 import logo from "../logo.png";
 import Authentication from "../api/Authentication";
 import { history } from "../api/history";
-import { useSelector, useDispatch } from "react-redux";
-import { login } from "../actions/authenticationAction";
+import { useDispatch } from "react-redux";
+import * as Action from "../actions/authenticationAction";
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
+const LoginPage = () => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
 
-    this.state = {
-      username: "",
-      password: "",
-    };
+  const handleSubmit = () => {
+    const user = { username, password, isLoggedIn: true };
+    Authentication.login(JSON.stringify(user));
+    dispatch(Action.login(user));
+    history.push("/");
+  };
 
-    this.updateState = (e) => {
-      const { name, value } = e.target;
-      this.setState({ [name]: value });
-    };
+  return (
+    <form className="form-signin" onSubmit={handleSubmit}>
+      <img className="mb-4" src={logo} alt=""></img>
 
-    this.login = (ev) => {
-      ev.preventDefault();
-      Authentication.login(JSON.stringify(this.state));
-      history.push("/");
-    };
-  }
+      <div className="form-group mt-4">
+        <label htmlFor="username">Username:</label>
+        <input
+          type="text"
+          className="form-control"
+          name="username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
+      </div>
 
-  render() {
-    const user = useSelector((state) => state);
-    const dispatch = useDispatch();
+      <div className="form-group">
+        <label htmlFor="password">Password:</label>
+        <input
+          type="password"
+          className="form-control"
+          name="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
 
-    return (
-      <form className="form-signin">
-        <img className="mb-4" src={logo} alt=""></img>
+      <button type="submit" className="btn btn-lg btn-primary btn-block">
+        Log in
+      </button>
+    </form>
+  );
+};
 
-        <div className="form-group mt-4">
-          <label htmlFor="username">Username:</label>
-          <input
-            type="text"
-            className="form-control"
-            name="username"
-            onChange={this.updateState}
-          />
-        </div>
-
-        <div className="form-group">
-          <label htmlFor="password">Password:</label>
-          <input
-            type="password"
-            className="form-control"
-            name="password"
-            onChange={this.updateState}
-          />
-        </div>
-
-        <button
-          type="button"
-          onClick={() => dispatch(login(user))}
-          //   onClick={this.login}
-          className="btn btn-lg btn-primary btn-block"
-        >
-          Log in
-        </button>
-      </form>
-    );
-  }
-}
-
-export default Login;
+export default LoginPage;
